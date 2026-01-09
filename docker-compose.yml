@@ -14,6 +14,7 @@ services:
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - laravel
+      - proxy
     depends_on:
       - redis
 
@@ -29,7 +30,7 @@ services:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     networks:
       - laravel
-      - proxy_default
+      - proxy
     depends_on:
       - app
 
@@ -59,5 +60,5 @@ services:
 networks:
   laravel:
     driver: bridge
-  proxy_default:
+  proxy:
     external: true
