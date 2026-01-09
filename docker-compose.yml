@@ -29,6 +29,7 @@ services:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     networks:
       - laravel
+      - npm_default
     depends_on:
       - app
 
@@ -58,3 +59,5 @@ services:
 networks:
   laravel:
     driver: bridge
+  npm_default:
+    external: true
