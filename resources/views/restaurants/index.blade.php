@@ -215,7 +215,7 @@
             <div class="card card-restaurant">
                 <div class="card-image">
                     @if ($restaurant->image)
-                        <img src="{{ asset('storage/' . $restaurant->image) }}" alt="{{ $restaurant->name }}">
+                        <img src="{{ Storage::url($restaurant->image) }}" alt="{{ $restaurant->name }}">
                     @else
                         <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center" style="color: white; font-weight: 600;">
                             <i class="fas fa-image me-2"></i>Tidak ada gambar
