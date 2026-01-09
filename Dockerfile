@@ -36,17 +36,29 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # ==============================
+# Copy composer files first for caching
+# ==============================
+COPY --chown=www-data:www-data composer.json composer.lock /var/www/
+
+# ==============================
+# Install PHP dependencies (cached layer)
+# ==============================
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --prefer-dist \
+    --no-interaction
+
+# ==============================
 # Copy Laravel source
 # ==============================
 COPY --chown=www-data:www-data . /var/www
 
 # ==============================
-# Install PHP dependencies
+# Generate optimized autoloader
 # ==============================
-RUN composer install \
-    --no-dev \
-    --optimize-autoloader \
-    --no-interaction
+RUN composer dump-autoload --optimize --no-dev
 
 # ==============================
 # Prepare Laravel directories
