@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
 # Set working directory
 WORKDIR /var/www
@@ -26,6 +26,9 @@ COPY . /var/www
 
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Create required directories
 RUN mkdir -p /var/www/storage/framework/sessions \
