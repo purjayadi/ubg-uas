@@ -21,10 +21,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing application directory
-COPY . /var/www
-
-# Copy existing application directory permissions
+# Copy application files with correct ownership
 COPY --chown=www-data:www-data . /var/www
 
 # Install PHP dependencies
@@ -36,9 +33,8 @@ RUN mkdir -p /var/www/storage/framework/sessions \
     /var/www/storage/framework/cache \
     /var/www/bootstrap/cache
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 /var/www/storage \
+# Set permissions only on specific directories
+RUN chmod -R 775 /var/www/storage \
     && chmod -R 775 /var/www/bootstrap/cache
 
 # Expose port 9000 and start php-fpm server
