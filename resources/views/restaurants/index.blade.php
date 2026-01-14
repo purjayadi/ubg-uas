@@ -144,7 +144,7 @@
     }
 
     .empty-state i {
-        font-size: 4rem;
+        font-size: 2.5rem;
         color: #ccc;
         margin-bottom: 1rem;
     }
@@ -168,6 +168,7 @@
         color:#682b1e;
         border-radius: 8px;
         margin: 0 3px;
+        font-size: 0.9rem;
     }
 
     .page-link:hover {
@@ -178,6 +179,14 @@
     .page-item.active .page-link {
         background: linear-gradient(90deg, #682b1e 0%,#682b1e 100%);
         border: none;
+    }
+
+    /* Reduce arrow size in pagination */
+    .pagination .page-link svg,
+    .pagination .page-link i {
+        font-size: 0.6rem;
+        width: 0.6rem;
+        height: 0.6rem;
     }
 </style>
 @endsection
@@ -254,7 +263,7 @@
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center">
-        {{ $restaurants->links() }}
+       {{ $restaurants->links('vendor.pagination.resto') }}
     </div>
 @else
     <div class="card border-0 empty-state">
